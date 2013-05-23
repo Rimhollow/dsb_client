@@ -5,6 +5,7 @@ module Dsb
       @hydra = Typhoeus::Hydra.new
       @api_host = connection["default"]["api_host"]
       @api_key = connection["default"]["api_key"]
+      @api_version = connection["default"]["api_version"]
     end
 
     def packages
@@ -12,7 +13,7 @@ module Dsb
         "#{@api_host}/packages",
         method: :get,
         headers: {
-          Accept: "application/vnd.presence.dsb.v1",
+          Accept: "application/vnd.presence.dsb.v#{@api_version}",
           Authorization: "Token token=#{@api_key}"
         }
       )
