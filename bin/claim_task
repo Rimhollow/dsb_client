@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require './lib/dsb'
+
+client = Dsb::Client.new(File.join('config', 'connection.yml'))
+
+type = ARGV[0]
+
+package = Dsb::Package.new(:type => type, :client => client).claim
+ap JSON.parse(package.body)

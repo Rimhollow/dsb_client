@@ -5,7 +5,19 @@ module Dsb
         @json = IO.read(options[:file])
       end
 
+      if options.keys.include? :type
+        @type = options[:type]
+      end
+
       @client = options[:client]
+    end
+
+    def claim
+      response = @client.submit_request :method => :post, 
+                                        :resource => '/tasks/claim',
+                                        :body => {
+                                          :type => @type,
+                                        }
     end
 
     def save
@@ -14,7 +26,6 @@ module Dsb
                                         :body => {
                                           :package => @json,
                                         }
-      ap response
     end
   end
 end
