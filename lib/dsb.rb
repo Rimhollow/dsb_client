@@ -1,7 +1,9 @@
-require 'rubygems'
-require 'ap'
 require 'json'
-require 'typhoeus'
+require 'net/http'
 require 'yaml'
 
+require 'rubygems'
+require 'awesome_print'
+
 require './lib/dsb/client'
+require './lib/dsb/package'
