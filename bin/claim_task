@@ -6,5 +6,6 @@ client = Dsb::Client.new(File.join('config', 'connection.yml'))
 
 type = ARGV[0]
 
-package = Dsb::Package.new(:type => type, :client => client).claim
-ap JSON.parse(package.body)
+daemon = Dsb::Daemon.new(:type => type, :client => client)
+daemon.claim_task
+ap {:package => daemon.package.data, :task => daemon.task.data}

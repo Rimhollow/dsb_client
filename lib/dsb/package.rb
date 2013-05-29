@@ -1,31 +1,22 @@
 module Dsb
   class Package
     def initialize options
-      if options.keys.include? :file
-        @json = IO.read(options[:file])
-      end
-
-      if options.keys.include? :type
-        @type = options[:type]
-      end
-
       @client = options[:client]
+      @data = JSON.parse(options[:json], :symbolize_names => true)
+      @resource = "/packages/#{@data[:id]}"
+      @changed = false
     end
 
-    def claim
-      response = @client.submit_request :method => :post, 
-                                        :resource => '/tasks/claim',
-                                        :body => {
-                                          :type => @type,
-                                        }
+    def set(field, value)
+      if @data.keys.include? field and @data[field] != value
+        @data[field] = value
+        @changed = true
+      end
     end
 
     def save
-      response = @client.submit_request :method => :post, 
-                                        :resource => '/packages', 
-                                        :body => {
-                                          :package => @json,
-                                        }
+      @client.submit_request :resource => @resource,
+                             :body => @data.to_json
     end
   end
 end

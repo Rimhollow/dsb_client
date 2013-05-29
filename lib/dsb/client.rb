@@ -13,7 +13,7 @@ module Dsb
 
     def submit_request options
       resource = options[:resource] || ''
-      method = options[:method] || :get
+      method = options[:method] || :post
       headers = options[:headers] || {}
       body = options[:body] || {}
 
@@ -31,6 +31,7 @@ module Dsb
       response = Net::HTTP.start(uri.hostname, uri.port) {|http|
         http.request(request)
       }
+      JSON.parse(response)
     end
   end
 end

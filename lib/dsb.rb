@@ -7,3 +7,5 @@ require 'awesome_print'
 
 require './lib/dsb/client'
 require './lib/dsb/package'
+require './lib/dsb/task'
+require './lib/dsb/daemon'
