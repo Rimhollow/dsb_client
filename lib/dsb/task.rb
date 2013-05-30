@@ -9,16 +9,15 @@ module Dsb
     end
 
     def complete!
-      status = 'completed'
+      @client.submit_request :resource => @resource, 
+                             :method => :put,
+                             :body => {:name => 'completed'}
     end
 
     def fail!
-      status = 'failed'
-    end
-
-    def status= name
-      @client.submit_request :resource => @resource,
-                             :body => {:name => name}
+      @client.submit_request :resource => @resource, 
+                             :method => :put,
+                             :body => {:name => 'failed'}
     end
   end
 end

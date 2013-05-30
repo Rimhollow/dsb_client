@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require './lib/dsb'
+
+client = Dsb::Client.new(File.join('config', 'connection.yml'))
+
+task_id = ARGV[0]
+
+task = Dsb::Task.new(:data => {:id => task_id}, :client => client)
+task.complete!

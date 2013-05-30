@@ -26,6 +26,12 @@ module Dsb
           request[h] = v
         end
         request.set_form_data(body)
+      when :put
+        request = Net::HTTP::Put.new(uri.path)
+        @default_headers.merge(headers).each do |h, v|
+          request[h] = v
+        end
+        request.set_form_data(body)
       end
 
       response = Net::HTTP.start(uri.hostname, uri.port) {|http|
