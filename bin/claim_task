@@ -8,4 +8,5 @@ type = ARGV[0]
 
 daemon = Dsb::Daemon.new(:type => type, :client => client)
 daemon.claim_task
-ap {:package => daemon.package.data, :task => daemon.task.data}
+ap daemon.package.data
+ap daemon.task.data

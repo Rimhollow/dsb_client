@@ -30,12 +30,12 @@ module Dsb
     end
 
     def claim_task
-      json = @client.submit_request :resource => '/tasks/claim',
+      data = @client.submit_request :resource => '/tasks/claim',
                                     :body => {:type => @type}
-      if json[:package] and json[:task]
-        @package = Package.new :json => json[:package], 
+      if data[:package] and data[:task]
+        @package = Package.new :data => data[:package], 
                                :client => @client
-        @task = Task.new :json => json[:task], 
+        @task = Task.new :data => data[:task], 
                          :client => @client
       else
         nil

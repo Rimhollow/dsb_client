@@ -1,8 +1,10 @@
 module Dsb
   class Task
+    attr_reader :data
+
     def initialize options
       @client = options[:client]
-      @data = JSON.parse(options[:json], :symbolize_names => true)
+      @data = options[:data]
       @resource = "/tasks/#{@data[:id]}"
     end
 

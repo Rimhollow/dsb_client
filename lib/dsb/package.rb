@@ -1,8 +1,10 @@
 module Dsb
   class Package
+    attr_reader :data
+
     def initialize options
       @client = options[:client]
-      @data = JSON.parse(options[:json], :symbolize_names => true)
+      @data = options[:data]
       @resource = "/packages/#{@data[:id]}"
       @changed = false
     end

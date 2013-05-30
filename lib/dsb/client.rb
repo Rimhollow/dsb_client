@@ -21,7 +21,7 @@ module Dsb
 
       case method
       when :post
-        request = Net::HTTP::Post.new(uri)
+        request = Net::HTTP::Post.new(uri.path)
         @default_headers.merge(headers).each do |h, v|
           request[h] = v
         end
@@ -31,7 +31,7 @@ module Dsb
       response = Net::HTTP.start(uri.hostname, uri.port) {|http|
         http.request(request)
       }
-      JSON.parse(response)
+      JSON.parse(response.body, :symbolize_names => true)
     end
   end
 end
