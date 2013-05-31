@@ -4,9 +4,5 @@ require './lib/dsb'
 
 client = Dsb::Client.new(File.join('config', 'connection.yml'))
 
-type = ARGV[0]
-
-daemon = Dsb::Daemon.new(:type => type, :client => client)
-daemon.claim_task
-ap daemon.package.data
-ap daemon.task.data
+daemon = Dsb::GetDaitssIdentifier.new(:client => client, :stdout => STDOUT)
+daemon.run
