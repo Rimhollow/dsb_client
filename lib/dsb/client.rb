@@ -20,6 +20,11 @@ module Dsb
       uri = URI("#{@api_host}#{resource}")
 
       case method
+      when :get
+        request = Net::HTTP::Get.new(uri.path)
+        @default_headers.merge(headers).each do |h, v|
+          request[h] = v
+        end
       when :post
         request = Net::HTTP::Post.new(uri.path)
         @default_headers.merge(headers).each do |h, v|
@@ -37,7 +42,12 @@ module Dsb
       response = Net::HTTP.start(uri.hostname, uri.port) {|http|
         http.request(request)
       }
-      JSON.parse(response.body, :symbolize_names => true)
+
+      if response.body
+        JSON.parse(response.body, :symbolize_names => true)
+      else
+        {}
+      end
     end
   end
 end

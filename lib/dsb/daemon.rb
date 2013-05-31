@@ -1,5 +1,5 @@
 module Dsb
-  class Daemon
+  module Daemon
     attr_reader :package, :task
 
     def initialize options
