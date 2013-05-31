@@ -5,7 +5,11 @@ module Dsb
     def initialize options
       @client = options[:client]
       @data = options[:data]
-      @resource = "/packages/#{@data[:id]}"
+      if @data.keys.include? :id
+        @resource = "/packages/#{@data[:id]}"
+      else
+        @resource = "/packages/"
+      end
       @changed = false
     end
 
@@ -16,9 +20,18 @@ module Dsb
       end
     end
 
-    def save
+    def create
       @client.submit_request :resource => @resource,
-                             :body => @data.to_json
+                             :body => {:package => @data.to_json}
+    end
+
+    def save
+      if @changed
+        @client.submit_request :resource => @resource,
+                               :method => :put,
+                               :body => {:id => @data[:id],
+                                         :package => @data}
+      end
     end
   end
 end
