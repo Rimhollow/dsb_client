@@ -1,10 +1,13 @@
 module Dsb
   class Client
+    attr_reader :processing_directory
+
     def initialize config 
       connection = YAML.load(IO.read config)
       @api_host = connection["default"]["api_host"]
       @api_key = connection["default"]["api_key"]
       @api_version = connection["default"]["api_version"]
+      @processing_directory = connection["default"]["processing_directory"]
       @default_headers = {
         'Accept' => "application/vnd.presence.dsb.v#{@api_version}",
         'Authorization' => "Token token=#{@api_key}",
