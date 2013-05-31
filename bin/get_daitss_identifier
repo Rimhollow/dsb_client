@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require './lib/dsb'
+
+client = Dsb::Client.new(File.join('config', 'connection.yml'))
+
+daemon = Dsb::GetDaitssIdentifier.new(:client => client, :stdout => STDOUT)
+daemon.run
