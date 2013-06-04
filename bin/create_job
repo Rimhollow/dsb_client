@@ -7,6 +7,8 @@ client = Dsb::Client.new(File.join('config', 'connection.yml'))
 working_directory = ARGV.shift
 ARGV.each do |job_description|
   json_path = File.expand_path(job_description, working_directory)
-  package = Dsb::Package.new(:file => json_path, :client => client)
-  package.save
+  data = JSON.parse(IO.read json_path)
+  package = Dsb::Package.new(:data => data, :client => client)
+  response = package.create
+  puts "Submitted #{response[:what]} with DSB identifier #{response[:id]}."
 end

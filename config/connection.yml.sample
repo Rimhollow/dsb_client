@@ -2,3 +2,4 @@ default:
   api_host: 'https://example.com/api'
   api_key: 'xxxxxxxx'
   api_version: '1'
+  processing_directory: '/path/to/processing'

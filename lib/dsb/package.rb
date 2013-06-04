@@ -1,31 +1,46 @@
 module Dsb
   class Package
+    attr_reader :data
+
     def initialize options
-      if options.keys.include? :file
-        @json = IO.read(options[:file])
-      end
-
-      if options.keys.include? :type
-        @type = options[:type]
-      end
-
       @client = options[:client]
+      @data = options[:data]
+      if @data.keys.include? :id
+        @resource = "/packages/#{@data[:id]}"
+      else
+        @resource = "/packages/"
+      end
+      @changed = false
     end
 
-    def claim
-      response = @client.submit_request :method => :post, 
-                                        :resource => '/tasks/claim',
-                                        :body => {
-                                          :type => @type,
-                                        }
+    def set(field, value)
+      if @data.keys.include? field and @data[field] != value
+        @data[field] = value
+        @changed = true
+      end
+    end
+
+    def get(field)
+      if @data.keys.include? field
+        @data[field]
+      end
+    end
+
+    def create
+      @client.submit_request :resource => @resource,
+                             :body => {:package => @data.to_json}
     end
 
     def save
-      response = @client.submit_request :method => :post, 
-                                        :resource => '/packages', 
-                                        :body => {
-                                          :package => @json,
-                                        }
+      if @changed
+        @client.submit_request :resource => @resource,
+                               :method => :put,
+                               :body => {:id => @data[:id],
+                                         :package => @data.to_json}
+        @data = @client.submit_request :resource => @resource,
+                                       :method => :get
+      end
+      @data
     end
   end
 end
