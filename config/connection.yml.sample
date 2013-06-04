@@ -3,3 +3,5 @@ default:
   api_key: 'xxxxxxxx'
   api_version: '1'
   processing_directory: '/path/to/processing'
+  rsync_command: '/usr/bin/rsync'
+  rsync_options: '-avPOK'

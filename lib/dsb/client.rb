@@ -1,6 +1,6 @@
 module Dsb
   class Client
-    attr_reader :processing_directory
+    attr_reader :processing_directory, :rsync_command, :rsync_options
 
     def initialize config 
       connection = YAML.load(IO.read config)
@@ -8,6 +8,8 @@ module Dsb
       @api_key = connection["default"]["api_key"]
       @api_version = connection["default"]["api_version"]
       @processing_directory = connection["default"]["processing_directory"]
+      @rsync_command = connection["default"]["rsync_command"]
+      @rsync_options = connection["default"]["rsync_options"]
       @default_headers = {
         'Accept' => "application/vnd.presence.dsb.v#{@api_version}",
         'Authorization' => "Token token=#{@api_key}",
