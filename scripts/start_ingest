@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /opt/pdp/services/src/dsb_client # /path/to/dsb_client_repo
+bin/start_ingest

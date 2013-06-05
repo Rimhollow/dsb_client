@@ -6,3 +6,6 @@ default:
   ingest_directory: '/path/to/ingest'
   rsync_command: '/usr/bin/rsync'
   rsync_options: '-avPOK'
+  submit_command: '/path/to/submit'
+  submit_username: 'username'
+  submit_password: 'password'
