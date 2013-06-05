@@ -15,7 +15,7 @@ module Dsb
       if File.directory?(source_path) and File.directory?(processing_path)
         # XXX Repeat the following until it stabilizes
         if system(@client.rsync_command, @client.rsync_options,
-                  source_path, processing_path)
+                  source_path + '/', processing_path)
           @task.complete!
         else
           @task.fail!
