@@ -1,0 +1,19 @@
+module Dsb
+  class {{klass}}
+    include Dsb::Daemon
+
+    def initialize options
+      @client = options[:client]
+      @type = "{{type}}"
+    end
+
+    def perform_task
+      # TODO: just add code
+      if it_worked
+        @task.complete!
+      else
+        @task.fail!
+      end
+    end
+  end
+end
