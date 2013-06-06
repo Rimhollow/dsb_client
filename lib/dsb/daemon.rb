@@ -5,6 +5,7 @@ module Dsb
     def initialize options
       @client = options[:client]
       @type = options[:type]
+      @delay = options[:delay] || 30
     end
 
     # The perform_task method may freely access
@@ -25,8 +26,10 @@ module Dsb
     end
 
     def run
-      # maybe put this in a loop
-      perform_task if claim_task
+      while true
+        perform_task if claim_task
+        sleep @delay
+      end
     end
 
     def claim_task
