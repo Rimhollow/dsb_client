@@ -8,9 +8,12 @@ module Dsb
     end
 
     def perform_task
+      uuid = SecureRandom.uuid
       processing_path = File.join(@client.processing_directory,
+                                  uuid,
                                   @package.get(:identifier))
       ingest_path = File.join(@client.ingest_directory,
+                              uuid,
                               @package.get(:identifier))
       @package.set(:processing_path, processing_path)
       @package.set(:ingest_path, ingest_path)
