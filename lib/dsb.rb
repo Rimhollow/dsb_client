@@ -18,6 +18,7 @@ require 'dsb/get_path'
 require 'dsb/stage_files'
 require 'dsb/export_package'
 require 'dsb/start_ingest'
+require 'dsb/cleanup'
 
 module Dsb
 end
