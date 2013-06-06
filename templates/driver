@@ -4,5 +4,5 @@ require 'dsb'
 
 client = Dsb::Client.new(File.join('config', 'connection.yml'))
 
-daemon = Dsb::GetDaitssIdentifier.new(:client => client, :stdout => STDOUT)
+daemon = Dsb::{{klass}}.new(:client => client, :stdout => STDOUT)
 daemon.run
