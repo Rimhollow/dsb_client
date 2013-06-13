@@ -13,6 +13,8 @@ module Dsb
       begin
         FileUtils.mkdir_p File.dirname(ingest_path)
         FileUtils.move(processing_path, ingest_path)
+        # We don't delete processing_path itself because if the above
+        # move command was successful, it no longer exists.
         FileUtils.rmdir File.dirname(processing_path)
         @task.complete!
       rescue e
