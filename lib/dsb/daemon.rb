@@ -35,9 +35,11 @@ module Dsb
     def claim_task
       data = @client.submit_request :resource => '/tasks/claim',
                                     :body => {:type => @type}
-      if data[:package] and data[:task]
+      if data[:package] and data[:project_info] and data[:task]
         @package = Package.new :data => data[:package], 
                                :client => @client
+        @project_info = ProjectInfo.new :data => data[:project_info],
+                                        :client => @client
         @task = Task.new :data => data[:task], 
                          :client => @client
       else
