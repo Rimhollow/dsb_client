@@ -1,4 +1,4 @@
 #!/bin/bash
 BASE=`pwd`
-cd /opt/pdp/services/src/dsb_client # /path/to/dsb_client_repo
+cd /opt/web-services/sites/dsb_client # /path/to/dsb_client_repo
 bin/create_job $BASE $@

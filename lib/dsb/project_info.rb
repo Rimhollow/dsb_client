@@ -7,5 +7,11 @@ module Dsb
       @data = options[:data]
       @resource = "/project_infos/#{@data[:id]}"
     end
+
+    def get(field)
+      if @data.keys.include? field
+        @data[field]
+      end
+    end
   end
 end

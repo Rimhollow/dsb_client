@@ -34,9 +34,10 @@ module Dsb
       end
 
       Dir.foreach(processing_path).each_with_index do |path, index|
-        if File.file?(path)
+        absolute_path = File.join(processing_path, path)
+        if File.file?(absolute_path)
           file_id = "BAGIT#{index + 1}"
-          absolute_path = File.join(processing_path, path)
+          # absolute_path = File.join(processing_path, path)
           size = File.size(absolute_path)
           checksum = Digest::MD5.hexdigest(File.read(absolute_path))
           template_data[:bagit_files] << {
